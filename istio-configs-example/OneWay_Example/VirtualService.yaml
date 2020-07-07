@@ -1,0 +1,19 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: customer-gateway
+spec:
+  hosts:
+  - "*" # Copy the value in the Gateway hosts
+  gateways:
+    - helloworld/helloworld-gateway # Gateway Name
+  http:
+    - match:
+        - uri:
+            prefix: /istio
+      route:
+        - destination:
+            host: helloworld # The Service DNS name
+            subset: version-v1 # The name defined in the DestinationRule
+          weight: 100

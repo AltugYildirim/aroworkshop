@@ -1,0 +1,11 @@
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld
+spec:
+  host: helloworld # Service
+  subsets:
+    - labels:
+        app: helloworld # find pods with label "helloworld"
+      name: app-helloworld

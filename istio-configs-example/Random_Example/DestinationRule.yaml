@@ -1,0 +1,20 @@
+---
+kind: DestinationRule # Defining which pods should be part of each subset
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld
+spec:
+  host: helloworld # Service
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+  subsets:
+    - labels: # SELECTOR
+        version: safe # find pods with label "safe"
+      name: safe
+    - labels: # SELECTOR
+        version: risky # find pods with label "risky"
+      name: risky
+    - labels: # SELECTOR
+        version: timeout # find pods with label "timeout"
+      name: timeout

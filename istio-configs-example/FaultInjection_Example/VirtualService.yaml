@@ -1,0 +1,19 @@
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld
+spec:
+  hosts:
+    - "*" # Copy the value in the Gateway hosts
+  gateways:
+    - helloworld/helloworld-gateway # Gateway Name
+  http:
+    - fault:
+        abort:
+          httpStatus: 503
+          percent: 50
+      route:
+        - destination:
+            host: helloworld # The Service DNS name
+            subset: app-helloworld # The name defined in the DestinationRule

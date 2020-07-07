@@ -1,0 +1,20 @@
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld
+spec:
+  hosts:
+    - "*"  # The Service DNS (ie the regular K8S Service) name that we're applying routing rules to.
+  gateways:
+    - helloworld-gateway
+  http:
+    - route:
+        - destination:
+            host: helloworld # The Target DNS name
+            subset: version-v1 # The name defined in the DestinationRule
+          weight: 10
+        - destination:
+            host: helloworld # The Target DNS name
+            subset: version-v2 # The name defined in the DestinationRule
+          weight: 90

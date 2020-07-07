@@ -1,0 +1,15 @@
+---
+kind: Gateway
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld-gateway
+spec:
+  servers:
+    - hosts:
+        - '*' # Domain name of the external website
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+  selector:
+    istio: ingressgateway #Use Istio default gateway implementatio

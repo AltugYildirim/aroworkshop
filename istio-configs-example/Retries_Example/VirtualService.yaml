@@ -1,0 +1,18 @@
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: helloworld
+spec:
+  hosts:
+    - "*" # Copy the value in the Gateway hosts
+  gateways:
+    - helloworld/helloworld-gateway # Gateway Name
+  http:
+    - route:
+        - destination:
+            host: helloworld # The Service DNS name
+            subset: version-v2 # The name defined in the DestinationRule
+      retries:
+        attempts: 3 # Number of retries for a given request. 
+        perTryTimeout: 2s # Timeout per retry attempt for a given request. format: 1h/1m/1s/1ms. MUST BE >=1ms.

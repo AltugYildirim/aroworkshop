@@ -1,0 +1,10 @@
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "helloworld"
+spec:
+  host: "*.k8s.nip.io" # Every SINGLE SERVICE eg helloworld.helloworld.svc.k8s.nip.io
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

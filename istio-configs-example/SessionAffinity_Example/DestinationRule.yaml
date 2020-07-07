@@ -1,0 +1,15 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule # Defining which pods should be part of each subset
+metadata:
+  name: helloworld-destinationrule
+spec:
+  host: helloworld # Service
+  trafficPolicy:
+    loadBalancer:
+      consistentHash: # Session affinity doesn't seem apply to weighted subset!!!
+        useSourceIp: true # Hash based on the source IP address.
+  subsets:
+    - labels: # Selector
+        app: helloworld # Find pods with label "safe" # add all deployment label "app: safe-service"
+      name: all-helloworld-pods
